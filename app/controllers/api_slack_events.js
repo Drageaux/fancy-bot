@@ -3,8 +3,7 @@ var api_slack_events_router = express.Router();
 
 
 api_slack_events_router.post('/', function (req, res) {
-    console.log('query:', req.query)
-    console.log('params:', req.params)
+    res.sendStatus(200);
     if (req.body.challenge) {
         res.json({
             "value": req.body.challenge
