@@ -101,6 +101,7 @@ controller.hears('challenge', 'mention,direct_mention', function (bot, message) 
                 'callback_id': 'challenge',
                 'fallback': 'You have failed to challenge...',
                 'attachment_type': 'default',
+                'response_type': 'in_channel',
                 'actions': [
                     {
                         'name': 'challenge',
@@ -123,8 +124,20 @@ controller.hears('challenge', 'mention,direct_mention', function (bot, message) 
                 ]
             }
         ]
-    }
+    };
     bot.reply(message, replyMessage)
+});
+
+controller.hears([/(a+)(w+)\s(y+)(e+)(a+)(h+)/gi], 'ambient,mention', function (bot, message) {
+    console.log(message.text);
+    var replyMessage = {
+        "attachments": [{
+            "fallback": "Required plain-text summary of the attachment.",
+            "title": message.value,
+            "image_url": "http://www.crowdnews.co.za/wp-content/uploads/2014/03/Aww-Yeah-meme.png"
+        }]
+    }
+    bot.reply(message, replyMessage);
 });
 
 // controller.hears('^stop', 'direct_message', function (bot, message) {
