@@ -1,0 +1,23 @@
+{
+  "name": "groot-gamify",
+  "version": "0.0.1",
+  "description": "Slack-integrated webapp for score keeping",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": true,
+  "author": "David Thong Nguyen",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "botkit": "^0.2.2",
+    "dotenv": "^2.0.0",
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "mongodb": "^2.1.6",
+    "monk": "^1.0.1",
+    "request": "^2.69.0"
+  }
+}
