@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "develop": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "private": true,
@@ -19,5 +20,8 @@
     "mongodb": "^2.1.6",
     "monk": "^1.0.1",
     "request": "^2.69.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
