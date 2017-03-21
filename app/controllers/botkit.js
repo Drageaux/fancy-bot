@@ -75,6 +75,15 @@ controller.on('rtm_open', function (bot) {
 controller.on('rtm_close', function (bot) {
     console.log('** The RTM api just closed');
     // you may want to attempt to re-open
+    bot.startRTM(function (err) {
+        if (!err) {
+            trackBot(bot);
+            console.log("RTM ok")
+        } else {
+            console.log("RTM failed")
+        }
+
+    });
 });
 
 //DIALOG ======================================================================
