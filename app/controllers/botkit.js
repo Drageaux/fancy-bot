@@ -56,7 +56,7 @@ controller.on('create_bot', function (bot, team) {
                 if (err) {
                     console.log(err);
                 } else {
-                    convo.say('I am a bot that has just joined your team');
+                    convo.say('I am a bot that you just installed');
                     convo.say('You must now /invite me to a channel so that I can be of use!');
                 }
             });
@@ -90,6 +90,41 @@ controller.on('rtm_close', function (bot) {
 
 controller.hears('hello', 'direct_message', function (bot, message) {
     bot.reply(message, 'Hello!');
+});
+
+controller.hears('challenge', 'mention,direct_mention', function (bot, message) {
+    var replyMessage = {
+        'text': 'Dave has started a Shaolin Showdown!',
+        'attachments': [
+            {
+                'text': 'Who would you like to challenge?',
+                'callback_id': 'challenge',
+                'fallback': 'You have failed to challenge...',
+                'attachment_type': 'default',
+                'actions': [
+                    {
+                        'name': 'challenge',
+                        'text': 'Jason',
+                        'type': 'button',
+                        'value': 'jason'
+                    },
+                    {
+                        'name': 'challenge',
+                        'text': 'Jayleen',
+                        'type': 'button',
+                        'value': 'jayleen'
+                    },
+                    {
+                        'name': 'challenge',
+                        'text': 'David',
+                        'type': 'button',
+                        'value': 'david'
+                    }
+                ]
+            }
+        ]
+    }
+    bot.reply(message, replyMessage)
 });
 
 // controller.hears('^stop', 'direct_message', function (bot, message) {

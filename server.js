@@ -24,12 +24,13 @@ app.set('view engine', 'ejs');
 
 // routes
 require('./app/routes/routes')(app);
+require('./app/routes/api')(app);
 
 //port for Heroku
 app.set('port', (process.env.PORT));
 
 //botkit (apres port)
-require('./app/controllers/botkit')
+require('./app/controllers/botkit');
 
 //START ===================================================
 http.listen(app.get('port'), function(){
