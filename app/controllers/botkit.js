@@ -106,19 +106,19 @@ controller.hears('challenge', 'mention,direct_mention', function (bot, message) 
                         'name': 'challenge',
                         'text': 'Jason',
                         'type': 'button',
-                        'value': 'jason'
+                        'value': 'Jason'
                     },
                     {
                         'name': 'challenge',
                         'text': 'Jayleen',
                         'type': 'button',
-                        'value': 'jayleen'
+                        'value': 'Jayleen'
                     },
                     {
                         'name': 'challenge',
                         'text': 'David',
                         'type': 'button',
-                        'value': 'david'
+                        'value': 'David'
                     }
                 ]
             }
