@@ -5,8 +5,9 @@ module.exports = function (app) {
         var payload = req.body.payload;
         if (payload) {
             console.log(JSON.parse(payload))
+            var challenger = payload.actions[0].value;
             res.status(200).send({
-                'text': req.body.payload
+                'text': "Dave challenged " + challenger + " to a Shaolin Showdown!"
             })
         } else {
             res.sendStatus(500);
