@@ -1,21 +1,22 @@
-// modules =================================================
+//MODULES=================================================
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var http = require('http').Server(app);
 var dotenv = require('dotenv');
 
-// configuration ===========================================
 
-//load environment variables,
-//either from .env files (development),
-//heroku environment in production, etc...
+//CONFIGURATION===========================================
+
+// load environment variables,
+// either from .env files (development),
+// heroku environment in production, etc...
 process.env.NODE_ENV == "production" ? "" : dotenv.load();
 
 // public folder for images, css,...
 app.use(express.static(__dirname + '/public'))
 
-//parsing
+// parsing
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({extended: true})); //for parsing url encoded
 
@@ -32,7 +33,8 @@ app.set('port', (process.env.PORT));
 //botkit (apres port)
 require('./app/controllers/botkit');
 
-//START ===================================================
+
+//START===================================================
 http.listen(app.get('port'), function () {
     console.log('listening on port ' + app.get('port'));
 });

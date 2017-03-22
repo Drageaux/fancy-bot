@@ -1,4 +1,3 @@
-var Request = require('request');
 var api_slack_interactive_router = require('../controllers/api_slack_interactive');
 var api_slack_events_router = require('../controllers/api_slack_events');
 
