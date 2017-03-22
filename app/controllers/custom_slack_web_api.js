@@ -3,7 +3,7 @@ var request = require('request');
 module.exports = function () {
 
     var config = {
-        token: process.env.VERIFICATION_TOKEN,
+        token: process.env.SLACK_OAUTH_TOKEN,
         client_id: process.env.SLACK_ID,
         client_secret: process.env.SLACK_SECRET,
         redirect_uri: process.env.SLACK_REDIRECT
@@ -13,6 +13,7 @@ module.exports = function () {
         api_url: 'https://slack.com/api/',
         // this is a simple function used to call the slack web API
         callAPI: function (command, options, cb) {
+            console.log('** API CALL: ' + slack_api.api_url + command);
             if (!options.token) {
                 options.token = config.token;
             }
@@ -37,6 +38,7 @@ module.exports = function () {
             }).form(options);
         },
         callAPIWithoutToken: function (command, options, cb) {
+            console.log('** API CALL: ' + slack_api.api_url + command);
             if (!options.client_id) {
                 options.client_id = config.clientId;
             }
