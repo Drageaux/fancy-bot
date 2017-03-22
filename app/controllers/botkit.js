@@ -67,7 +67,7 @@ controller.on('create_bot', function (bot, team) {
 
 //REACTIONS TO EVENTS==========================================================
 
-// Handle events related to the websocket connection to Slack
+// handle events related to the websocket connection to Slack
 controller.on('rtm_open', function (bot) {
     console.log('** The RTM api just connected!');
 });
@@ -86,12 +86,13 @@ controller.on('rtm_close', function (bot) {
     });
 });
 
-//DIALOG ======================================================================
+//DIALOG======================================================================
 
 controller.hears('hello', 'direct_message', function (bot, message) {
     bot.reply(message, 'Hello!');
 });
 
+// interactive messages example
 controller.hears('challenge', 'mention,direct_mention', function (bot, message) {
     var replyMessage = {
         'text': 'Dave has started a Shaolin Showdown!',
@@ -128,6 +129,7 @@ controller.hears('challenge', 'mention,direct_mention', function (bot, message) 
     bot.reply(message, replyMessage)
 });
 
+// attachment example
 controller.hears([/(a+)(w+)\s(y+)(e+)(a+)(h+)/gi], 'ambient,mention', function (bot, message) {
     console.log(message.text);
     var replyMessage = {
@@ -136,7 +138,7 @@ controller.hears([/(a+)(w+)\s(y+)(e+)(a+)(h+)/gi], 'ambient,mention', function (
             "title": message.value,
             "image_url": "http://www.crowdnews.co.za/wp-content/uploads/2014/03/Aww-Yeah-meme.png"
         }]
-    }
+    };
     bot.reply(message, replyMessage);
 });
 
@@ -176,5 +178,4 @@ controller.storage.teams.all(function (err, teams) {
             });
         }
     }
-
 });
