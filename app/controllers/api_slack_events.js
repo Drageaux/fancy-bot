@@ -15,13 +15,13 @@ api_slack_events_router.post('/', function (req, res) {
                 channel: item.channel,
                 timestamp: item.ts
             }, function (err, response) {
-                console.log("Response -->", response.message.reactions);
+                console.log("** RESPONSE:\n------------\n", response.message.reactions, "\n------------");
             })
         } else if (item && item.type == "file") {
             slack_api.reactions.get({
                 file: item.file
             }, function (err, response) {
-                console.log("Response -->", response.file.reactions);
+                console.log("** RESPONSE:\n------------\n", response.file.reactions, "\n------------");
             })
         }
 
