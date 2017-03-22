@@ -16,6 +16,7 @@ api_slack_events_router.post('/', function (req, res) {
     }
 
     if (req.body.event && req.body.event.type == "reaction_added"){
+        console.log("reaction_added")
         slack_web_api.reactions.get({
             channel: 'G0ZJLUQM8',
             timestamp: '1490197183.479945'
