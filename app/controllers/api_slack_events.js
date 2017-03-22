@@ -7,7 +7,7 @@ var slack_api = custom_slack_web_api();
 
 api_slack_events_router.post('/', function (req, res) {
     if (req.body.event && req.body.event.type == "reaction_added") {
-        console.log("reaction_added");
+        console.log("** EVENT TRIGGERED: reaction_added");
         var item = req.body.event.item;
 
         if (item && item.type == "message") {
@@ -15,13 +15,13 @@ api_slack_events_router.post('/', function (req, res) {
                 channel: item.channel,
                 timestamp: item.ts
             }, function (err, response) {
-                console.log("Slack Web API response:", response);
+                console.log("Response -->", response.message.reactions);
             })
         } else if (item && item.type == "file") {
             slack_api.reactions.get({
                 file: item.file
             }, function (err, response) {
-                console.log("Slack Web API response:", response);
+                console.log("Response -->", response.file.reactions);
             })
         }
 
