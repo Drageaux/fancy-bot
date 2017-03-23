@@ -54,7 +54,6 @@ api_slack_events_router.post('/', function (req, res) {
 });
 
 function addPoints(userId, points, res) {
-    console.log(userId, points, res)
     storage.users.get(userId, function (err, user) {
         if (err || !user) {
             user = {
@@ -71,8 +70,11 @@ function addPoints(userId, points, res) {
                 savedUser.score += points;
             }
             storage.users.save(savedUser, function (err, finalUser) {
-                console.log("User " + finalUser.id + " updated with score " + finalUser.score)
-                res.json(finalUser);
+                if (err) console.log('err:', err);
+                else {
+                    console.log("User " + finalUser.id + " updated with score " + finalUser.score);
+                    res.json(finalUser);
+                }
             });
         });
     });
