@@ -157,7 +157,7 @@ controller.hears([/update ny channel/i], 'mention,direct_mention', function (bot
                 controller.storage.users.get(member, function (err, user) {
                     if (err || !user) {
                         user = {
-                            id: members[m],
+                            id: member,
                             team_id: message.team,
                             score: 0
                         }
