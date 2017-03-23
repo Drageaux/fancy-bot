@@ -54,6 +54,7 @@ api_slack_events_router.post('/', function (req, res) {
 });
 
 function addPoints(userId, points, res) {
+    console.log(userId, points, res)
     storage.users.get(userId, function (err, user) {
         if (err || !user) {
             user = {
