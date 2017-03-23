@@ -26,10 +26,7 @@ api_slack_events_router.post('/', function (req, res) {
                 if (totalCount < 5) {
                     res.sendStatus(200)
                 } else {
-                    addPoints(userId, totalCount, function (err, user) {
-                        console.log(user);
-                        res.sendStatus(200)
-                    })
+                    addPoints(userId, totalCount, res);
                 }
             })
         } else if (item && item.type == "file") {
@@ -46,10 +43,7 @@ api_slack_events_router.post('/', function (req, res) {
                 if (totalCount < 5) {
                     res.sendStatus(200)
                 } else {
-                    addPoints(userId, totalCount, function (err, user) {
-                        console.log(user);
-                        res.sendStatus(200)
-                    })
+                    addPoints(userId, totalCount, res);
                 }
             })
         }
@@ -59,7 +53,7 @@ api_slack_events_router.post('/', function (req, res) {
     }
 });
 
-function addPoints(userId, points, cb) {
+function addPoints(userId, points, res) {
     storage.users.get(userId, function (err, user) {
         if (err || !user) {
             user = {
@@ -77,7 +71,7 @@ function addPoints(userId, points, cb) {
             }
             controller.storage.users.save(savedUser, function (err, finalUser) {
                 console.log("User " + finalUser.id + " updated with score " + finalUser.score)
-                return finalUser;
+                res.json(finalUser);
             });
         });
     });
