@@ -63,14 +63,14 @@ function addPoints(userId, points, res) {
                 score: points
             }
         }
-        controller.storage.users.save(user, function (err, savedUser) {
+        storage.users.save(user, function (err, savedUser) {
             if (err) console.log('err:', err);
             if (isNaN(savedUser.score) || !savedUser.score) {
                 savedUser.score = points;
             } else {
                 savedUser.score += points;
             }
-            controller.storage.users.save(savedUser, function (err, finalUser) {
+            storage.users.save(savedUser, function (err, finalUser) {
                 console.log("User " + finalUser.id + " updated with score " + finalUser.score)
                 res.json(finalUser);
             });
