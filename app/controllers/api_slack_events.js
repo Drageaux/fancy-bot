@@ -24,14 +24,13 @@ api_slack_events_router.post('/', function (req, res) {
                 console.log("** RESPONSE:\n------------\n", response.file.reactions, "\n------------");
             })
         }
-
     }
 
     // events API verification
     if (req.body.challenge) {
         res.json({
             "value": req.body.challenge
-        })
+        });
     } else {
         res.sendStatus(500);
         return;

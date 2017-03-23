@@ -130,7 +130,7 @@ controller.hears('challenge', 'mention,direct_mention', function (bot, message) 
 });
 
 // attachment example
-controller.hears([/(a+)(w+)\s(y+)(e+)(a+)(h+)/gi], 'ambient,mention', function (bot, message) {
+controller.hears([/(a+)(w+)\s(y+)(e+)(a+)(h*)/gi], 'ambient,mention', function (bot, message) {
     console.log(message.text);
     var replyMessage = {
         "attachments": [{
@@ -142,10 +142,42 @@ controller.hears([/(a+)(w+)\s(y+)(e+)(a+)(h+)/gi], 'ambient,mention', function (
     bot.reply(message, replyMessage);
 });
 
-// controller.hears('^stop', 'direct_message', function (bot, message) {
-//     bot.reply(message, 'Goodbye');
-//     bot.rtm.close();
-// });
+// add new user or update user to have 0 points
+controller.hears([/update ny channel/i], 'mention,direct_mention', function (bot, message) {
+    bot.api.groups.info({
+        channel: 'G0ZJLUQM8',
+        pretty: 1
+    }, function (err, res) {
+        if (err) {
+            console.log('err:', err);
+        } else {
+            console.log('Updating NY channel members');
+            var members = res.group.members;
+            members.forEach(function (member) {
+                controller.storage.users.get(member, function (err, user) {
+                    if (err || !user) {
+                        user = {
+                            id: members[m],
+                            team_id: message.team,
+                            score: 0
+                        }
+                    }
+                    controller.storage.users.save(user, function (err, savedUser) {
+                        if (err) console.log('err:', err);
+                        if (isNaN(savedUser.score) || !savedUser.score || savedUser.score <= 0) {
+                            savedUser.score = 0;
+                            controller.storage.users.save(savedUser, function (err, finalUser) {
+                                console.log("User " + finalUser.id + " updated with score " + finalUser.score)
+                            });
+                        } else {
+                            console.log("User " + savedUser.id + "'s score not changed and is " + savedUser.score);
+                        }
+                    });
+                });
+            })
+        }
+    })
+});
 
 controller.on('direct_message,mention,direct_mention', function (bot, message) {
     bot.api.reactions.add({
