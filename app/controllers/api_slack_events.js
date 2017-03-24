@@ -40,7 +40,7 @@ api_slack_events_router.post('/', function (req, res) {
 
         // retrieve item info
         slack_api.reactions.get(options, function (err, data) {
-            console.log('** RESPONSE:\n------------\n', response, '\n------------');
+            console.log('** RESPONSE:\n------------\n', data, '\n------------');
 
             if (req.body.event.item == "reaction_added") {
                 eventHandler.reaction.added(data, typeAttr, res);
