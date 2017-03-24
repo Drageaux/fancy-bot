@@ -43,9 +43,9 @@ api_slack_events_router.post('/', function (req, res) {
             console.log('** RESPONSE:\n------------\n', data, '\n------------');
 
             if (req.body.event.type == "reaction_added") {
-                eventHandler.reaction.added(data, typeAttr, res);
+                eventHandler.reaction.added(data, itemType, res);
             } else if (req.body.event.type == "reaction_removed") {
-                eventHandler.reaction.removed(data, typeAttr, res);
+                eventHandler.reaction.removed(data, itemType, res);
             }
         });
     } else {
