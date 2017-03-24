@@ -23,11 +23,15 @@ api_slack_events_router.post('/', function (req, res) {
                     channel: item.channel,
                     timestamp: item.ts
                 };
+                break;
             case 'file':
                 options = {file: item.file};
+                break;
             case 'file_comment':
-                options = {file_comment: item.file_comment}
+                options = {file_comment: item.file_comment};
+                break;
         }
+        console.log(options);
         slack_api.reactions.get(options, function (err, response) {
             console.log('** RESPONSE:\n------------\n', response, '\n------------');
             var emojis = response[item.type].reactions;
