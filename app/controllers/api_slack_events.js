@@ -42,9 +42,9 @@ api_slack_events_router.post('/', function (req, res) {
         slack_api.reactions.get(options, function (err, data) {
             console.log('** RESPONSE:\n------------\n', data, '\n------------');
 
-            if (req.body.event.item == "reaction_added") {
+            if (req.body.event.type == "reaction_added") {
                 eventHandler.reaction.added(data, typeAttr, res);
-            } else if (req.body.event.item == "reaction_removed") {
+            } else if (req.body.event.type == "reaction_removed") {
                 eventHandler.reaction.removed(data, typeAttr, res);
             }
         });
@@ -77,7 +77,7 @@ var eventHandler = {
             emojis.forEach(function (emoji) {
                 totalCount += !isNaN(emoji.count) ? emoji.count : 0;
             });
-            if (totalCount > 4) {
+            if (totalCount < 4) {
                 res.sendStatus(200)
             } else {
                 storageController.removePoints(userId, totalCount, res);
