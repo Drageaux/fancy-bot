@@ -70,7 +70,7 @@ var eventHandler = {
                 storageController.addPoints(userId, totalCount, res);
             }
         },
-        removed: function (req, res) {
+        removed: function (data, itemType, res) {
             var emojis = data[itemType].reactions;
             var userId = data[itemType].user;
             var totalCount = 0;
