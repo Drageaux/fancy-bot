@@ -9,7 +9,7 @@ api_slack_events_router.post('/', function (req, res) {
     // reactions events
     if (req.body.event &&
         (req.body.event.type == 'reaction_added' || req.body.event.type == 'reaction_remove')) {
-        console.log('** EVENT TRIGGERED: reaction_added');
+        console.log('** EVENT TRIGGERED:', req.body.event.type);
         var item = req.body.event.item;
         if (!item) {
             console.log('err: no item found from reaction_added event');
@@ -45,7 +45,7 @@ api_slack_events_router.post('/', function (req, res) {
             if (req.body.event.item == "reaction_added") {
                 eventHandler.reaction.added(data, typeAttr, res);
             } else if (req.body.event.item == "reaction_removed") {
-                eventHandler.reaction.remove(data, typeAttr, res);
+                eventHandler.reaction.removed(data, typeAttr, res);
             }
         });
     } else {
