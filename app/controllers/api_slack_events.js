@@ -21,7 +21,7 @@ api_slack_events_router.post('/', function (req, res) {
                 var userId = response.message.user;
                 var totalCount = 0;
                 emojis.forEach(function (emoji) {
-                    totalCount += emoji.count ? emoji.count : 0;
+                    totalCount += !isNaN(emoji.count) ? emoji.count : 0;
                 });
                 if (totalCount < 5) {
                     res.sendStatus(200)
@@ -38,7 +38,7 @@ api_slack_events_router.post('/', function (req, res) {
                 var userId = response.file.user;
                 var totalCount = 0;
                 emojis.forEach(function (emoji) {
-                    totalCount += emoji.count ? emoji.count : 0;
+                    totalCount += !isNaN(emoji.count) ? emoji.count : 0;
                 });
                 if (totalCount < 5) {
                     res.sendStatus(200)
