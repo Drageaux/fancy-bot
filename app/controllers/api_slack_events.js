@@ -8,7 +8,7 @@ var storage = require('../../config/botkit_mongo_storage')({mongoUri: mongoUri})
 api_slack_events_router.post('/', function (req, res) {
     // reactions events
     if (req.body.event &&
-        (req.body.event.type == 'reaction_added' || req.body.event.type == 'reaction_remove')) {
+        (req.body.event.type == 'reaction_added' || req.body.event.type == 'reaction_removed')) {
         console.log('** EVENT TRIGGERED:', req.body.event.type);
         var item = req.body.event.item;
         if (!item) {
