@@ -17,25 +17,29 @@ api_slack_events_router.post('/', function (req, res) {
         }
 
         var options = {};
+        var typeAttr = '';
         switch (item.type) {
             case 'message':
                 options = {
                     channel: item.channel,
                     timestamp: item.ts
                 };
+                typeAttr = 'message';
                 break;
             case 'file':
                 options = {file: item.file};
+                typeAttr = 'file';
                 break;
             case 'file_comment':
                 options = {file_comment: item.file_comment};
+                typeAttr = 'comment';
                 break;
         }
         console.log(options);
         slack_api.reactions.get(options, function (err, response) {
             console.log('** RESPONSE:\n------------\n', response, '\n------------');
-            var emojis = response[item.type].reactions;
-            var userId = response[item.type].user;
+            var emojis = response[typeAttr].reactions;
+            var userId = response[typeAttr].user;
             var totalCount = 0;
             emojis.forEach(function (emoji) {
                 totalCount += !isNaN(emoji.count) ? emoji.count : 0;
