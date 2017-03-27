@@ -1,11 +1,41 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
-  <body>
-    <h1>Welcome</h1>
-    <center>
-        <a href='https://slack.com/oauth/authorize?client_id=<%= process.env.SLACK_ID %>&redirect_uri=<%= process.env.SLACK_REDIRECT %>new&scope=bot'><img alt="Add to Slack" height="40" width="139" src="/images/add_to_slack.png"></a>
-    </center>
-  </body>
+<body>
+<h1>Welcome</h1>
+<ul>Instructions:</ul>
+<li>To announce to #t-lunch channel, say "Lunch is here"</li>
+</body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/prototype/1.7.2.0/prototype.js"></script>
+<script>
+    if (annyang) {
+        console.log('annyang ready!');
+        // Let's define our first command. First the text we expect, and then the function it should call
+        var commands = {
+            'lunch is here': lunchHere
+        };
+
+        // Add our commands to annyang
+        annyang.addCommands(commands);
+
+        // Start listening. You can call this here, or attach this call to an event, button, etc.
+        annyang.start({autoRestart: false, continuous: false});
+    }
+
+
+    function lunchHere() {
+        new Ajax.Request('/api/slack/lunch', {
+            method: 'post',
+            postBody: {'text': 'lunch is here'},
+            onSuccess: function (response) {
+                alert('Sent to t-lunch channel!')
+            },
+            onFailure: function (err) {
+                alert(err)
+            }
+        });
+    }
+</script>
 </html>
 
 
