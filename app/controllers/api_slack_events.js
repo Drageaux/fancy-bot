@@ -6,10 +6,11 @@ var mongoUri = process.env.MONGODB_URI || 'mongodb://localhost/groot-gamify';
 var storage = require('../../config/botkit_mongo_storage')({mongoUri: mongoUri});
 
 api_slack_events_router.post('/', function (req, res) {
+    if (req.body.event) console.log('** EVENT TRIGGERED:', req.body.event.type);
+
     // reactions events
     if (req.body.event &&
         (req.body.event.type == 'reaction_added' || req.body.event.type == 'reaction_removed')) {
-        console.log('** EVENT TRIGGERED:', req.body.event.type);
         var item = req.body.event.item;
         if (!item) {
             console.log('err: no item found from reaction_added event');
